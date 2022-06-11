@@ -28,6 +28,11 @@
                 @increase-balance="increaseBalance"
                 @decrease-balance="decreaseBalance"
               ></BalanceOperations>
+              <MoneySending
+                :players="players"
+                :currentIndex="index"
+                @send-sum="sendSumToOtherPlayer"
+              ></MoneySending>
             </PlayerCard>
           </div>
         </div>
@@ -40,6 +45,7 @@
 import AddPlayersBtn from "./components/Add-players-btn.vue";
 import PlayerCard from "./components/Player-card.vue";
 import BalanceOperations from "./components/Balance-operations.vue";
+import MoneySending from "./components/Money-sending.vue";
 
 export default {
   name: "App",
@@ -47,6 +53,7 @@ export default {
     AddPlayersBtn,
     PlayerCard,
     BalanceOperations,
+    MoneySending,
   },
   data() {
     return {
@@ -72,6 +79,10 @@ export default {
     },
     decreaseBalance(value, currentIndex) {
       this.players[currentIndex].balance -= +value;
+    },
+    sendSumToOtherPlayer(sum, outIndex, toIndex) {
+      this.players[outIndex].balance -= +sum;
+      this.players[toIndex].balance += +sum;
     },
   },
 
