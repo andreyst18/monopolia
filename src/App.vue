@@ -22,7 +22,13 @@
               :key="index"
               :name="player.name"
               :balance="player.balance"
-            ></PlayerCard>
+            >
+              <BalanceOperations
+                :currentIndex="index"
+                @increase-balance="increaseBalance"
+                @decrease-balance="decreaseBalance"
+              ></BalanceOperations>
+            </PlayerCard>
           </div>
         </div>
       </div>
@@ -33,12 +39,14 @@
 <script>
 import AddPlayersBtn from "./components/Add-players-btn.vue";
 import PlayerCard from "./components/Player-card.vue";
+import BalanceOperations from "./components/Balance-operations.vue";
 
 export default {
   name: "App",
   components: {
     AddPlayersBtn,
     PlayerCard,
+    BalanceOperations,
   },
   data() {
     return {
@@ -55,11 +63,19 @@ export default {
         balance: inputBalance,
       };
       this.players.push(newPlayer);
-      console.log(this.players);
+      // console.log(this.players);
 
       this.hasPlayers = true;
     },
+    increaseBalance(value, currentIndex) {
+      this.players[currentIndex].balance += +value;
+    },
+    decreaseBalance(value, currentIndex) {
+      this.players[currentIndex].balance -= +value;
+    },
   },
+
+  computed: {},
 };
 </script>
 
