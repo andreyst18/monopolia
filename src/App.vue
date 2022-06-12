@@ -79,16 +79,14 @@ export default {
         isActive: inputStatus,
       };
       this.players.push(newPlayer);
-      // console.log(this.players);
-
       this.hasPlayers = true;
       this.addNewEvent(0, 0, 0, inputName);
     },
     addNewEvent(...args) {
       const time = new Date();
       const newEvent = {
-        eventTime: time,
-        eventType: args[0],
+        eventTime: this.formatDate(time),
+        eventType: args[0], //0 - добавление игрока; 1 - приход; 2 - расход; 3 - перевод другому игроку; 4 - становление неактивным
         sumIn: args[1],
         sumOut: args[2],
         playerFirst: args[3],
@@ -99,6 +97,7 @@ export default {
     },
     increaseBalance(value, currentIndex) {
       this.players[currentIndex].balance += +value;
+      this.addNewEvent(1, value, 0, this.players[currentIndex].name);
     },
     decreaseBalance(value, currentIndex) {
       this.players[currentIndex].balance -= +value;
@@ -115,6 +114,16 @@ export default {
       if (this.players[index].balance < -5e6) {
         this.players[index].isActive = false;
       }
+    },
+    formatDate(date) {
+      const dayNumber = date.getDate();
+      const month =
+        date.getMonth().length > 1 ? date.getMonth() : "0" + date.getMonth();
+      const year = date.getFullYear();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+      return `${dayNumber}.${month}.${year} ${hours}:${minutes}:${seconds}`;
     },
   },
 };
