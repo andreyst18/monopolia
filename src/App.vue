@@ -28,6 +28,7 @@
                 :currentIndex="index"
                 @increase-balance="increaseBalance"
                 @decrease-balance="decreaseBalance"
+                :players="players"
               ></BalanceOperations>
               <MoneySending
                 :players="players"

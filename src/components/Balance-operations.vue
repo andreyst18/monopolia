@@ -8,6 +8,7 @@
           class="balance-operation__input"
           type="text"
           v-model="balanceIn"
+          :disabled="!players[currentIndex].isActive"
         />
         <button @click="increaseBalance">></button>
       </div>
@@ -20,6 +21,7 @@
           class="balance-operation__input"
           type="text"
           v-model="balanceOut"
+          :disabled="!players[currentIndex].isActive"
         />
         <button @click="decreaseBalance">></button>
       </div>
@@ -31,6 +33,7 @@
 export default {
   props: {
     currentIndex: Number,
+    players: Array,
   },
   data() {
     return {

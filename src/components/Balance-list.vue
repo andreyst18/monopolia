@@ -12,6 +12,7 @@
             class="balance-list__item"
             v-for="(player, index) in players"
             :key="index"
+            :class="{ inactive: !player.isActive }"
           >
             {{ player.name }}
           </li>
@@ -21,6 +22,7 @@
             class="balance-list__item"
             v-for="(player, index) in players"
             :key="index"
+            :class="{ inactive: !player.isActive }"
           >
             {{ formatBalance(player.balance) }}
           </li>
@@ -55,10 +57,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  list-style: none;
+}
+
 .lists {
   &__titles,
   &__lists {
     display: flex;
   }
+}
+
+.inactive {
+  opacity: 0.5;
 }
 </style>

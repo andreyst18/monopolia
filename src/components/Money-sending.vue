@@ -4,16 +4,32 @@
     <div class="money-sending__recipient">
       <span>Игроку: </span>
       <form action="">
-        <select @change="getPlayerIndex">
-          <option v-for="(item, index) in players" :key="index">
+        <select
+          @change="getPlayerIndex"
+          :disabled="!players[currentIndex].isActive"
+        >
+          <option
+            v-for="(item, index) in players"
+            :key="index"
+            :disabled="!players[index].isActive"
+          >
             {{ item.name }}
           </option>
         </select>
       </form>
     </div>
     <div class="money-sending__sum">
-      <input type="text" v-model="sendingSum" />
-      <button @click="sendSumToOtherPlayer">Отправить</button>
+      <input
+        type="text"
+        v-model="sendingSum"
+        :disabled="!players[currentIndex].isActive"
+      />
+      <button
+        @click="sendSumToOtherPlayer"
+        :disabled="!players[currentIndex].isActive"
+      >
+        Отправить
+      </button>
     </div>
   </div>
 </template>
