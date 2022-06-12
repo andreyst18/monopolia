@@ -3,7 +3,7 @@
     <div class="balance-operations__in balance-operation">
       <div class="balance-operation__title">Приход</div>
       <div class="balance-operation__main">
-        <span>Сумма: </span>
+        <span>Сумма(тыс. руб.): </span>
         <input
           class="balance-operation__input"
           type="text"
@@ -15,7 +15,7 @@
     <div class="balance-operations__out balance-operation">
       <div class="balance-operation__title">Расход</div>
       <div class="balance-operation__main">
-        <span>Сумма: </span>
+        <span>Сумма(тыс. руб.): </span>
         <input
           class="balance-operation__input"
           type="text"
@@ -40,11 +40,11 @@ export default {
   },
   methods: {
     increaseBalance() {
-      this.$emit("increase-balance", this.balanceIn, this.currentIndex);
+      this.$emit("increase-balance", this.balanceIn * 1000, this.currentIndex);
       this.balanceIn = "";
     },
     decreaseBalance() {
-      this.$emit("decrease-balance", this.balanceOut, this.currentIndex);
+      this.$emit("decrease-balance", this.balanceOut * 1000, this.currentIndex);
       this.balanceOut = "";
     },
   },

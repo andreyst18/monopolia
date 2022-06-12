@@ -1,7 +1,9 @@
 <template>
   <div class="player-card">
     <h3 class="player-card__name">{{ name }}</h3>
-    <div class="player-card__balance">Баланс игрока: {{ formatBalance }}</div>
+    <div class="player-card__balance">
+      Баланс игрока(руб.): {{ formatBalance }}
+    </div>
     <slot></slot>
   </div>
 </template>

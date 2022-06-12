@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <BalanceList v-if="hasPlayers" :players="players"></BalanceList>
     <main class="base">
       <h1 class="base__title">Монополия</h1>
       <div class="base__players">
@@ -46,6 +47,7 @@ import AddPlayersBtn from "./components/Add-players-btn.vue";
 import PlayerCard from "./components/Player-card.vue";
 import BalanceOperations from "./components/Balance-operations.vue";
 import MoneySending from "./components/Money-sending.vue";
+import BalanceList from "./components/Balance-list.vue";
 
 export default {
   name: "App",
@@ -54,6 +56,7 @@ export default {
     PlayerCard,
     BalanceOperations,
     MoneySending,
+    BalanceList,
   },
   data() {
     return {
@@ -64,10 +67,11 @@ export default {
   },
 
   methods: {
-    addNewPlayer(inputName, inputBalance) {
+    addNewPlayer(inputName, inputBalance, inputStatus) {
       const newPlayer = {
         name: inputName,
         balance: inputBalance,
+        isActive: inputStatus,
       };
       this.players.push(newPlayer);
       // console.log(this.players);
@@ -79,14 +83,21 @@ export default {
     },
     decreaseBalance(value, currentIndex) {
       this.players[currentIndex].balance -= +value;
+      this.checkActivity(currentIndex);
+      console.log(this.players);
     },
     sendSumToOtherPlayer(sum, outIndex, toIndex) {
       this.players[outIndex].balance -= +sum;
       this.players[toIndex].balance += +sum;
+      this.checkActivity(outIndex);
+      console.log(this.players);
+    },
+    checkActivity(index) {
+      if (this.players[index].balance < -5e6) {
+        this.players[index].isActive = false;
+      }
     },
   },
-
-  computed: {},
 };
 </script>
 

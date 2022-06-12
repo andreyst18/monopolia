@@ -9,13 +9,19 @@ export default {
       player: {
         name: "",
         balance: 15e6,
+        isActive: true,
       },
     };
   },
   methods: {
     getNewPlayer() {
       this.player.name = prompt("Ведите имя игрока");
-      this.$emit("get-new-player", this.player.name, this.player.balance);
+      this.$emit(
+        "get-new-player",
+        this.player.name,
+        this.player.balance,
+        this.player.isActive
+      );
       // console.log(this.player.name);
     },
   },

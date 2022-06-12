@@ -1,6 +1,6 @@
 <template>
   <div class="money-sending">
-    <h4 class="money-sending__title">Отправить деньги</h4>
+    <h4 class="money-sending__title">Отправить деньги(тыс. руб.)</h4>
     <div class="money-sending__recipient">
       <span>Игроку: </span>
       <form action="">
@@ -36,7 +36,7 @@ export default {
     sendSumToOtherPlayer() {
       this.$emit(
         "send-sum",
-        this.sendingSum,
+        this.sendingSum * 1000,
         this.currentIndex,
         this.recepient
       );
