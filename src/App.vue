@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <BalanceList v-if="hasPlayers" :players="players"></BalanceList>
+    <AppLog :appEvents="appEvents"></AppLog>
     <main class="base">
       <h1 class="base__title">Монополия</h1>
       <div class="base__players">
@@ -49,6 +50,7 @@ import PlayerCard from "./components/Player-card.vue";
 import BalanceOperations from "./components/Balance-operations.vue";
 import MoneySending from "./components/Money-sending.vue";
 import BalanceList from "./components/Balance-list.vue";
+import AppLog from "./components/App-log.vue";
 
 export default {
   name: "App",
@@ -58,12 +60,14 @@ export default {
     BalanceOperations,
     MoneySending,
     BalanceList,
+    AppLog,
   },
   data() {
     return {
       hasPlayers: false,
       defaultNotification: "Список игроков пуст. Добавьте первого игрока.",
       players: [],
+      appEvents: [],
     };
   },
 
@@ -78,6 +82,20 @@ export default {
       // console.log(this.players);
 
       this.hasPlayers = true;
+      this.addNewEvent(0, 0, 0, inputName);
+    },
+    addNewEvent(...args) {
+      const time = new Date();
+      const newEvent = {
+        eventTime: time,
+        eventType: args[0],
+        sumIn: args[1],
+        sumOut: args[2],
+        playerFirst: args[3],
+        playerSecond: args[4],
+      };
+      this.appEvents.push(newEvent);
+      console.log(this.appEvents);
     },
     increaseBalance(value, currentIndex) {
       this.players[currentIndex].balance += +value;
@@ -109,6 +127,10 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+#app {
+  position: relative;
 }
 
 body {
