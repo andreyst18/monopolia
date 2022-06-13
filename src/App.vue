@@ -102,17 +102,26 @@ export default {
     decreaseBalance(value, currentIndex) {
       this.players[currentIndex].balance -= +value;
       this.checkActivity(currentIndex);
-      console.log(this.players);
+      this.addNewEvent(2, 0, value, this.players[currentIndex].name);
     },
     sendSumToOtherPlayer(sum, outIndex, toIndex) {
       this.players[outIndex].balance -= +sum;
       this.players[toIndex].balance += +sum;
       this.checkActivity(outIndex);
-      console.log(this.players);
+      this.addNewEvent(
+        3,
+        0,
+        sum,
+        this.players[outIndex].name,
+        this.players[toIndex].name
+      );
     },
     checkActivity(index) {
       if (this.players[index].balance < -5e6) {
         this.players[index].isActive = false;
+        setTimeout(() => {
+          this.addNewEvent(4, 0, 0, this.players[index].name);
+        }, 1);
       }
     },
     formatDate(date) {
@@ -121,8 +130,14 @@ export default {
         date.getMonth().length > 1 ? date.getMonth() : "0" + date.getMonth();
       const year = date.getFullYear();
       const hours = date.getHours();
-      const minutes = date.getMinutes();
-      const seconds = date.getSeconds();
+      const minutes =
+        date.getMinutes().length > 1
+          ? date.getMinutes()
+          : ("0" + date.getMinutes()).slice(-2);
+      const seconds =
+        date.getSeconds().length > 1
+          ? date.getSeconds()
+          : ("0" + date.getSeconds()).slice(-2);
       return `${dayNumber}.${month}.${year} ${hours}:${minutes}:${seconds}`;
     },
   },
