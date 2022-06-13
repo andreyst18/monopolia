@@ -2,7 +2,7 @@
   <div class="player-card">
     <h3 class="player-card__name">{{ name }}</h3>
     <div class="player-card__balance">
-      Баланс игрока(руб.): {{ formatBalance }}
+      Баланс игрока(монет): {{ formatBalance }}
     </div>
     <slot></slot>
   </div>

@@ -22,17 +22,17 @@ export default {
         case 1:
           return `${newEvent.eventTime} Игрок ${
             newEvent.playerFirst
-          } получил ${this.formatBalance(newEvent.sumIn)} рублей`;
+          } получил ${this.formatBalance(newEvent.sumIn)} монет`;
         case 2:
           return `${newEvent.eventTime} Игрок ${
             newEvent.playerFirst
-          } потратил ${this.formatBalance(newEvent.sumOut)} рублей`;
+          } потерял ${this.formatBalance(newEvent.sumOut)} монет`;
         case 3:
           return `${newEvent.eventTime} Игрок ${
             newEvent.playerFirst
           } перевел игроку ${newEvent.playerSecond} ${this.formatBalance(
             newEvent.sumOut
-          )} рублей`;
+          )} монет`;
         case 4:
           return `${newEvent.eventTime} Игрок ${newEvent.playerFirst} выбыл из игры`;
       }

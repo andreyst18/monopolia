@@ -4,7 +4,7 @@
     <div class="balance-list__lists lists">
       <div class="lists__titles">
         <div class="lists__title">Имя игрока</div>
-        <div class="lists__title">Баланс игрока(руб.)</div>
+        <div class="lists__title">Баланс игрока(монет)</div>
       </div>
       <div class="lists__lists">
         <ul class="balance-list__list">

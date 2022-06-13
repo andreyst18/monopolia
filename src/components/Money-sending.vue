@@ -1,6 +1,6 @@
 <template>
   <div class="money-sending">
-    <h4 class="money-sending__title">Отправить деньги(тыс. руб.)</h4>
+    <h4 class="money-sending__title">Отправить деньги(тыс. монет)</h4>
     <div class="money-sending__recipient">
       <span>Игроку: </span>
       <form action="">
@@ -11,7 +11,7 @@
           <option
             v-for="(item, index) in players"
             :key="index"
-            :disabled="!players[index].isActive"
+            :disabled="!players[index].isActive || index === currentIndex"
           >
             {{ item.name }}
           </option>

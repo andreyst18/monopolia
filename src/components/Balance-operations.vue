@@ -3,7 +3,7 @@
     <div class="balance-operations__in balance-operation">
       <div class="balance-operation__title">Приход</div>
       <div class="balance-operation__main">
-        <span>Сумма(тыс. руб.): </span>
+        <span>Сумма(тыс. монет): </span>
         <input
           class="balance-operation__input"
           type="text"
@@ -16,7 +16,7 @@
     <div class="balance-operations__out balance-operation">
       <div class="balance-operation__title">Расход</div>
       <div class="balance-operation__main">
-        <span>Сумма(тыс. руб.): </span>
+        <span>Сумма(тыс. монет): </span>
         <input
           class="balance-operation__input"
           type="text"
