@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <BalanceList v-if="hasPlayers" :players="players"></BalanceList>
-    <AppLog :appEvents="appEvents"></AppLog>
+    <AppLog v-if="hasPlayers" :appEvents="appEvents"></AppLog>
     <main class="base">
       <h1 class="base__title">Монополия</h1>
       <div class="base__players">
@@ -24,6 +24,7 @@
               :key="index"
               :name="player.name"
               :balance="player.balance"
+              :isActive="player.isActive"
             >
               <BalanceOperations
                 :currentIndex="index"
@@ -70,7 +71,18 @@ export default {
       appEvents: [],
     };
   },
-
+  mounted() {
+    if (localStorage.length) {
+      if (confirm("Вы желаете продолжить игру?")) {
+        this.hasPlayers = true;
+        this.players = JSON.parse(localStorage.getItem("players"));
+        this.appEvents = JSON.parse(localStorage.getItem("appEvents"));
+        console.log(this.players);
+      } else {
+        localStorage.clear();
+      }
+    }
+  },
   methods: {
     addNewPlayer(inputName, inputBalance, inputStatus) {
       const newPlayer = {
@@ -93,7 +105,11 @@ export default {
         playerSecond: args[4],
       };
       this.appEvents.push(newEvent);
-      console.log(this.appEvents);
+
+      let serializePlayers = JSON.stringify(this.players);
+      let serializeAppEvents = JSON.stringify(this.appEvents);
+      localStorage.setItem("players", serializePlayers);
+      localStorage.setItem("appEvents", serializeAppEvents);
     },
     increaseBalance(value, currentIndex) {
       this.players[currentIndex].balance += +value;
@@ -107,6 +123,10 @@ export default {
     sendSumToOtherPlayer(sum, outIndex, toIndex) {
       this.players[outIndex].balance -= +sum;
       this.players[toIndex].balance += +sum;
+
+      console.log(outIndex);
+      console.log(toIndex);
+
       this.checkActivity(outIndex);
       this.addNewEvent(
         3,
@@ -159,12 +179,12 @@ export default {
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: rgb(185, 207, 219);
+  background-color: rgb(196, 220, 233);
 }
 
 .base {
   margin: 0 auto;
-  padding: 0 20vw;
+  padding: 0 50px;
   &__title {
     text-align: center;
     padding-top: 50px;
@@ -187,6 +207,7 @@ body {
   &__cards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
   &__btn-wrapper {
     display: flex;

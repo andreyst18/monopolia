@@ -1,8 +1,9 @@
 <template>
-  <div class="player-card">
+  <div class="player-card" :class="{ inactive: !isActive }">
     <h3 class="player-card__name">{{ name }}</h3>
-    <div class="player-card__balance">
-      Баланс игрока(монет): {{ formatBalance }}
+    <div class="player-card__balance balance">
+      <span class="balance__title">Баланс игрока(монет):</span>
+      {{ formatBalance }}
     </div>
     <slot></slot>
   </div>
@@ -14,6 +15,7 @@ export default {
   props: {
     name: String,
     balance: Number,
+    isActive: Boolean,
   },
   methods: {},
 
@@ -37,10 +39,29 @@ export default {
 
 <style lang="scss" scoped>
 .player-card {
-  width: 300px;
-  height: 300px;
-  background: #fff;
+  width: 350px;
+  min-width: 350px;
+  padding: 20px 10px;
+  border-radius: 5px;
+  background: rgb(214, 250, 194);
   margin-right: 20px;
   margin-bottom: 20px;
+  &__name {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  &__balance {
+    margin-bottom: 15px;
+  }
+}
+
+.balance {
+  &__title {
+    text-decoration: underline;
+  }
+}
+
+.inactive {
+  background-color: rgb(240, 174, 180);
 }
 </style>

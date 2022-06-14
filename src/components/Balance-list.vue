@@ -1,15 +1,16 @@
 <template>
-  <aside class="balance-list">
-    <h4 class="balance-list__title">Текущий баланс игроков:</h4>
-    <div class="balance-list__lists lists">
-      <div class="lists__titles">
-        <div class="lists__title">Имя игрока</div>
-        <div class="lists__title">Баланс игрока(монет)</div>
-      </div>
-      <div class="lists__lists">
-        <ul class="balance-list__list">
+  <aside class="balance-list" :class="{ hide: hide }">
+    <div class="balance-list__header">
+      <h3 class="balance-list__title">Текущий баланс игроков:</h3>
+      <span @click="hideList">{{ hideShow }}</span>
+    </div>
+
+    <div class="balance-list__main">
+      <div class="balance-list__player-name lists">
+        <div class="lists__title"><strong>Имя игрока</strong></div>
+        <ul class="lists__list">
           <li
-            class="balance-list__item"
+            class="lists__item"
             v-for="(player, index) in players"
             :key="index"
             :class="{ inactive: !player.isActive }"
@@ -17,7 +18,10 @@
             {{ player.name }}
           </li>
         </ul>
-        <ul class="balance-list__list">
+      </div>
+      <div class="balance-list__player__balance lists">
+        <div class="lists__title"><strong>Баланс игрока(монет)</strong></div>
+        <ul class="lists__list">
           <li
             class="balance-list__item"
             v-for="(player, index) in players"
@@ -38,6 +42,13 @@ export default {
     players: Array,
   },
 
+  data() {
+    return {
+      hide: false,
+      hideShow: "Свернуть",
+    };
+  },
+
   methods: {
     formatBalance(value) {
       let balance = value + "";
@@ -52,11 +63,41 @@ export default {
       }
       return result.reverse().join("");
     },
+    hideList() {
+      if (!this.hide) {
+        this.hide = true;
+        setTimeout(() => {
+          this.hideShow = "Развернуть";
+        }, 300);
+      } else {
+        this.hide = false;
+        this.hideShow = "Свернуть";
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.balance-list {
+  position: absolute;
+  padding: 10px;
+  top: 50px;
+  border-radius: 0 10px 10px 0;
+  background-color: #fff;
+  max-height: 1000px;
+  &__main {
+    display: flex;
+  }
+  box-shadow: 5px 5px 5px rgb(167, 165, 165);
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}
+
 ul {
   list-style: none;
 }
@@ -66,9 +107,29 @@ ul {
   &__lists {
     display: flex;
   }
+  &__title {
+    text-decoration: underline;
+    margin-bottom: 10px;
+  }
 }
 
 .inactive {
   opacity: 0.5;
+}
+
+.lists {
+  &__titles {
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    margin-right: 40px;
+  }
+}
+
+.hide {
+  max-height: 40px;
+  transition: max-height 0.3s;
+  overflow: hidden;
 }
 </style>
