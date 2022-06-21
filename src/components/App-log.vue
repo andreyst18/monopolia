@@ -2,7 +2,7 @@
   <div class="app-log" :class="{ hide: hide }">
     <div class="app-log__header">
       <h3 class="app-log__title">Лог событий:</h3>
-      <span @click="hideList">{{ hideShow }}</span>
+      <span class="app-log__btn" @click="hideList">{{ hideShow }}</span>
     </div>
     <ul class="app-log__list">
       <li v-for="(item, index) in appEvents" :key="index">
@@ -94,6 +94,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+  }
+  &__btn {
+    cursor: pointer;
   }
 }
 

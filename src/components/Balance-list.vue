@@ -2,7 +2,7 @@
   <aside class="balance-list" :class="{ hide: hide }">
     <div class="balance-list__header">
       <h3 class="balance-list__title">Текущий баланс игроков:</h3>
-      <span @click="hideList">{{ hideShow }}</span>
+      <span class="balance-list__btn" @click="hideList">{{ hideShow }}</span>
     </div>
 
     <div class="balance-list__main">
@@ -41,14 +41,12 @@ export default {
   props: {
     players: Array,
   },
-
   data() {
     return {
       hide: false,
       hideShow: "Свернуть",
     };
   },
-
   methods: {
     formatBalance(value) {
       let balance = value + "";
@@ -96,12 +94,13 @@ export default {
     align-items: center;
     margin-bottom: 20px;
   }
+  &__btn {
+    cursor: pointer;
+  }
 }
-
 ul {
   list-style: none;
 }
-
 .lists {
   &__titles,
   &__lists {
@@ -112,21 +111,17 @@ ul {
     margin-bottom: 10px;
   }
 }
-
 .inactive {
   opacity: 0.5;
 }
-
 .lists {
   &__titles {
     margin-bottom: 10px;
   }
-
   &__title {
     margin-right: 40px;
   }
 }
-
 .hide {
   max-height: 40px;
   transition: max-height 0.3s;

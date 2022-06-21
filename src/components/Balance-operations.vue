@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+button {
+  cursor: pointer;
+}
+
 .balance-operations {
   display: flex;
   flex-wrap: wrap;

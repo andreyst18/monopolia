@@ -83,6 +83,10 @@ select {
   border: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 .money-sending {
   &__main {
   }
